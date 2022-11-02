@@ -1,0 +1,20 @@
+import React from 'react';
+
+const char = (props) => {
+    const componentStyle = {
+        display: 'inline-block',
+        padding: '16px',
+        textAlign: 'center',
+        margin: '16px',
+        border: '1px solid black',
+        cursor: 'pointer'
+    }
+
+    return (
+        <div style={componentStyle} onClick={props.deleted}>
+            {props.character}
+        </div>
+    );
+}
+
+export default char;
