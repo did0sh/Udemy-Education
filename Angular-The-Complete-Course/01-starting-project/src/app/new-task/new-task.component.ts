@@ -1,8 +1,7 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { User } from '../user/user.model';
-import { Task } from '../tasks/task.model';
 import { FormsModule } from '@angular/forms';
-import { DUMMY_TASKS } from '../dummy/dummy-tasks';
+import { TasksService } from '../tasks/tasks.service';
 
 @Component({
   selector: 'app-new-task',
@@ -12,25 +11,27 @@ import { DUMMY_TASKS } from '../dummy/dummy-tasks';
   styleUrl: './new-task.component.css'
 })
 export class NewTaskComponent {
-  @Output() cancelAddTask = new EventEmitter<void>();
+  @Output() close = new EventEmitter<void>();
   @Input({required:true}) user!: User;
 
-  titleInput = '';
-  summaryInput = '';
-  dueDateInput = '';
+  constructor(private tasksService: TasksService){}
+
+  enteredTitle = '';
+  enteredSummary = '';
+  enteredDate = '';
 
   closeTaskModal() {
-    this.cancelAddTask.emit()
+    this.close.emit()
   }
 
-  createTask() {
-    DUMMY_TASKS.unshift({
-      id: new Date().getTime().toString(),
-      userId: this.user.id,
-      title: this.titleInput,
-      summary: this.summaryInput,
-      dueDate: this.dueDateInput
-    })
+  addTask() {
+    this.tasksService.createTask(
+      {
+      title: this.enteredTitle, 
+      summary: this.enteredSummary, 
+      date: this.enteredDate
+      }, 
+    this.user.id)
     this.closeTaskModal();
   }
 }

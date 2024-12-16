@@ -1,8 +1,7 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
-import { DUMMY_TASKS } from '../dummy/dummy-tasks';
 import { TaskComponent } from "./task.component";
 import { NewTaskComponent } from '../new-task/new-task.component';
-import { Task } from './task.model';
+import { TasksService } from './tasks.service';
 
 
 @Component({
@@ -14,22 +13,19 @@ import { Task } from './task.model';
 })
 export class TasksComponent {
   @Input() selectedUser : any
-  tasks = DUMMY_TASKS
   isAddingTask: boolean = false;
 
-  get selectedUserTasks() {
-    return this.tasks.filter((task) => task.userId === this.selectedUser.id);
-  }
+  constructor(private tasksService: TasksService){}
 
-  onCompleteTask(id: string) {
-    this.tasks = this.tasks.filter((task) => task.id !== id);
+  get selectedUserTasks() {
+    return this.tasksService.getUserTasks(this.selectedUser.id)
   }
 
   onStartAddTask() {
     this.isAddingTask = true;  
   }
 
-  onCancelAddTask() {
+  onCloseAddTask() {
     this.isAddingTask = false
   }
 }
