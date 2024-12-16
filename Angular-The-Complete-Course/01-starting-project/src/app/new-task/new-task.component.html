@@ -1,19 +1,19 @@
 <div class="backdrop" (click)="closeTaskModal()"></div>
 <dialog open>
   <h2>Add Task</h2>
-  <form (ngSubmit)="createTask()">
+  <form (ngSubmit)="addTask()">
     <p>
       <label for="title">Title</label>
-      <input type="text" id="title" name="title" [(ngModel)]="titleInput" />
+      <input type="text" id="title" name="title" [(ngModel)]="enteredTitle" />
     </p>
     <p>
       <label for="summary">Summary</label>
-      <textarea id="summary" rows="5" name="summary" [(ngModel)]="summaryInput"></textarea>
+      <textarea id="summary" rows="5" name="summary" [(ngModel)]="enteredSummary"></textarea>
     </p>
 
     <p>
       <label for="due-date">Due Date</label>
-      <input type="date" id="due-date" name="due-date" [(ngModel)]="dueDateInput"/>
+      <input type="date" id="due-date" name="due-date" [(ngModel)]="enteredDate"/>
     </p>
 
     <p class="actions">
